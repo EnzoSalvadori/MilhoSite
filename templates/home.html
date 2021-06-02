@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    {% csrf_token %}
+    {{ form|crispy }}
+    <h3 class="text-center pt-5"> Sitema de detecção e contagem de plantas de milho</h3>
+
+    <a class="nav-link text-center btn-secondary my-3" href="{% url 'pages:up' %}">Enviar imagem</a>
+{% endblock %}

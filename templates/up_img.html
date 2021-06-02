@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Envio de imagens{% endblock %}
+
+{% block content %}
+    {% csrf_token %}
+    {{ form|crispy }}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="file" name="imagem">
+        <br>
+        <button class="btn btn-primary" type="submit">Enviar</button>
+        {% for message in messages %}
+		{% if message.tags == 'success' %}
+		<div class="alert alert-success">
+		{% else %}
+		<div class="alert alert-danger">
+		{% endif %}
+			{{message}}
+		</div>
+        <br>
+		{% endfor %}
+    </form>
+{% endblock %}
