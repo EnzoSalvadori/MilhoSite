@@ -12,5 +12,5 @@ class UserAdmin(auth_admin.UserAdmin):
     model = User
 
     fieldsets = auth_admin.UserAdmin.fieldsets + (
-        ("Campos Personalizados", {"fields": ("espaco","processada",)}),
+        ("Campos Personalizados", {"fields": ("espaco","premium",)}),
     )

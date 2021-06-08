@@ -5,14 +5,33 @@
 {% block title %}Envio de imagens{% endblock %}
 
 {% block content %}
+    <script type="text/javascript"> 
+        var tipo_usuario = "{{user.premium}}";
+        var espaco_usuario = "{{user.espaco}}";
+        function valida_up() {
+            var imagem = document.getElementById("imagem");
+            var botao = document.getElementById("botao");
+            if (tipo_usuario == "False"){
+                if (imagem.files.item(0).size + parseInt(espaco_usuario) > 524288000){
+                    alert("A imagem enviada ultaprassou seu limite de 500 Mb");
+                    imagem.value = ""
+                } 
+            }else{
+                if (imagem.files.item(0).size + parseInt(espaco_usuario) > 53687063712){
+                    alert("A imagem enviada ultaprassou seu limite de 50 GB");
+                    imagem.value = ""
+                }  
+            }
+        }
+    </script>
     {% csrf_token %}
     {{ form|crispy }}
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|crispy }}
-        <input type="file" name="imagem">
+        <input type="file" name="imagem" id="imagem" onchange="valida_up()">
         <br>
-        <button class="btn btn-primary" type="submit">Enviar</button>
+        <button class="btn btn-primary" id="botao" type="submit">Enviar</button>
         {% for message in messages %}
 		{% if message.tags == 'success' %}
 		<div class="alert alert-success">
@@ -25,3 +44,4 @@
 		{% endfor %}
     </form>
 {% endblock %}
+
