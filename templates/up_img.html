@@ -10,38 +10,50 @@
         var espaco_usuario = "{{user.espaco}}";
         function valida_up() {
             var imagem = document.getElementById("imagem");
-            var botao = document.getElementById("botao");
+            var formato = imagem.value.split(".");
+            formato = (formato[formato.length-1]).toUpperCase()
+            console.log(formato)
+            if (formato != "PNG" && formato != "TIF" && formato != "JPEG" && formato != "JPG"){
+                alert("O arquivo enviado não possui um dos fortados (PNG) (TIF) (JPEG) (JPG) ");
+                imagem.value = "";
+                return;
+            }
             if (tipo_usuario == "False"){
                 if (imagem.files.item(0).size + parseInt(espaco_usuario) > 524288000){
                     alert("A imagem enviada ultaprassou seu limite de 500 Mb");
-                    imagem.value = ""
-                } 
+                    imagem.value = "";
+                    return;
+                }
             }else{
                 if (imagem.files.item(0).size + parseInt(espaco_usuario) > 53687063712){
                     alert("A imagem enviada ultaprassou seu limite de 50 GB");
-                    imagem.value = ""
+                    imagem.value = "";
+                    return;
                 }  
             }
         }
+        function desabilita(){
+            var botao = document.getElementById("botao");
+            var imagem = document.getElementById("imagem");
+            if (imagem.value == ""){
+                alert("Por favor selecione um arquivo para envio");
+                imagem.value = "";
+                return;
+            }
+            botao.disabled = "disabled";
+            botao.innerHTML = "Fazendo upload do arquivo aguarde ...";
+            botao.form.submit();
+        }
     </script>
+
     {% csrf_token %}
     {{ form|crispy }}
-    <form method="POST" enctype="multipart/form-data">
+    <form method="POST" id="formID" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|crispy }}
         <input type="file" name="imagem" id="imagem" onchange="valida_up()">
         <br>
-        <button class="btn btn-primary" id="botao" type="submit">Enviar</button>
-        {% for message in messages %}
-		{% if message.tags == 'success' %}
-		<div class="alert alert-success">
-		{% else %}
-		<div class="alert alert-danger">
-		{% endif %}
-			{{message}}
-		</div>
-        <br>
-		{% endfor %}
+        <button class="btn btn-primary" id="botao" type="submit" onclick="desabilita()">Enviar</button>
     </form>
 {% endblock %}
 

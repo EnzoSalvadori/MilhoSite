@@ -21,19 +21,11 @@ def up(request):
 					cornImg = pes = Imagem.objects.create_Imagem(uploaded_file,"",False,usuario)
 					usuario.save()
 					cornImg.save()
-					messages.success(request, "Arquivo de imagem enviado!")
-				else:
-					messages.error(request, "Arquivo de imagem excede o espaço maximo")
 			if (usuario.premium == True):
 				if (usuario.espaco + uploaded_file.size <= LIMITE2):
 					usuario.espaco = usuario.espaco + uploaded_file.size
 					cornImg = pes = Imagem.objects.create_Imagem(uploaded_file,"",False,usuario)
 					usuario.save()
 					cornImg.save()
-					messages.success(request, "Arquivo de imagem enviado!")
-				else:
-					messages.error(request, "Arquivo de imagem excede o espaço maximo")
-		else:
-			messages.error(request, "Arquivo de imagem não selecioando!")
 	return render(request,"up_img.html")
 	
