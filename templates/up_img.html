@@ -13,8 +13,8 @@
             var formato = imagem.value.split(".");
             formato = (formato[formato.length-1]).toUpperCase()
             console.log(formato)
-            if (formato != "PNG" && formato != "TIF" && formato != "JPEG" && formato != "JPG"){
-                alert("O arquivo enviado não possui um dos fortados (PNG) (TIF) (JPEG) (JPG) ");
+            if (formato != "PNG" && formato != "TIF" && formato != "TIFF" && formato != "JPEG" && formato != "JPG"){
+                alert("O arquivo enviado não possui um dos formatos suportados (PNG) (JPEG) (JPG) (TIF) (TIFF)");
                 imagem.value = "";
                 return;
             }
@@ -48,12 +48,18 @@
 
     {% csrf_token %}
     {{ form|crispy }}
-    <form method="POST" id="formID" enctype="multipart/form-data">
+    <h3 class="text-center pt-5"> Sitema de detecção e contagem de plantas de milho</h3>
+    <form method="POST" id="formID" enctype="multipart/form-data" class="mt-5 text-center">
         {% csrf_token %}
         {{ form|crispy }}
-        <input type="file" name="imagem" id="imagem" onchange="valida_up()">
+        <div class="drop-zone">
+            <span class="drop-zone__prompt">Drop file here or click to upload</span>
+            <input type="file" name="imagem" id="imagem" onchange="valida_up()" class="drop-zone__input">
+        </div>
         <br>
-        <button class="btn btn-primary" id="botao" type="submit" onclick="desabilita()">Enviar</button>
+        <button class="btn btn-primary px-5 mt-3" id="botao" type="submit" onclick="desabilita()">Enviar</button>
     </form>
+
+    <script src="../static/main.js"></script>
 {% endblock %}
 

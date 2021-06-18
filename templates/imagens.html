@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Minhas imagens{% endblock %}
+
+{% block content %}
+{{ form|crispy }}
+
+<script type="text/javascript"> 
+    function desabilita(id){
+        var botao = document.getElementById(id);
+        botao.disabled = "disabled";
+        botao.innerHTML = "Em processamento";
+        botao.form.submit();
+    }
+</script>
+
+<h3 class="text-center pt-5 mb-5"> Sitema de detecção e contagem de plantas de milho</h3>
+<div class="container">
+    <div class="row">
+        {% for i in imagens %}
+        <form method="POST" class="col-6 text-center" id="formID" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{ i.id }}">
+            <img src="../media/{{ i.imagemOrg }}" alt="My image" width=480 height=270 name="img">
+            {% if i.processada == "0" %}
+                <button class="btn btn-primary my-3" id="{{ i.id }}" type="submit" onclick="desabilita('{{ i.id }}')">Inciar contagem</button>
+            {% endif %}
+            {% if i.processada == "1" %}
+                <button class="btn btn-primary my-3" id="{{ i.id }}" type="submit" disabled>Em processamento</button>
+            {% endif %}
+            {% if i.processada == "2" %}
+                <button class="btn btn-primary my-3" id="{{ i.id }}" type="submit">Visualizar resultados</button>
+            {% endif %}
+        </form>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

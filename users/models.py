@@ -4,7 +4,7 @@ from django.db import models
 
 class User(AbstractUser):
     espaco = models.IntegerField(blank=True,default=0)
-    premium = models.BooleanField(blank=True,default=False)
+    premium = models.CharField(max_length=5, default="0")
 
     def __str__(self):
         return str(self.id)

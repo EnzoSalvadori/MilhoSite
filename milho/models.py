@@ -11,9 +11,10 @@ class ImagemManager(models.Manager):
 class Imagem(models.Model):
     class Meta:
         db_table = 'imagem'
-    imagemOrg = models.ImageField()
-    imagemPro = models.ImageField()
-    processada = models.BooleanField(default=False)
+    imagemOrg = models.ImageField(default="default.jpg")
+    imagemPro = models.ImageField(default="default.jpg")
+    quantPlantas = models.IntegerField(default=0)
+    processada = models.CharField(max_length=5, default="0")
     fk_user = models.ForeignKey(User, on_delete=models.PROTECT)
 
     objects = ImagemManager()

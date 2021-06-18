@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Minhas imagens{% endblock %}
+
+{% block content %}
+{{ form|crispy }}
+
+{% for i in imagem %}
+<div class="text-center">
+    <h3 class="pt-5"> Imagem {{ i.id }}</h3>
+    <img class="mt-5" src="../media/{{ i.imagemPro }}" alt="My image" width="640" height="480" name="img">
+    <h3 class="pt-5"> Plantas de milho contadas: {{ i.quantPlantas }}</h3>
+</div>
+{% endfor %}
+{% endblock %}
