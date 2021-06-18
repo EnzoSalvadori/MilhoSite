@@ -3,7 +3,7 @@ from allauth.account.decorators import verified_email_required
 from django.contrib import messages
 from milho.models import Imagem
 import os
-from .processa_imagem import processa
+#from .processa_imagem import processa
 from threading import Thread
 import cv2
 
