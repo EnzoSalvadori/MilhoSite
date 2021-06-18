@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    'allauth.account.auth_backends.AuthenticationBackend'
     "crispy_forms",
     # outros apps
     "milho.apps.MilhoConfig",
