@@ -2,49 +2,88 @@
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" href="{% static 'main.css' %}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <title>{% block title %}{% endblock %}</title>
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand navbar-dark bg-dark mb-3">
-            <div class="container">
-                <div class="row">
-                    <a class="navbar-brand" href="{% url 'pages:home' %}">CornViewer</a>
-                    {% if user.is_authenticated %}
-                        <a class="navbar-brand" href="{% url 'pages:up' %}">Enviar imagens</a>
-                        <a class="navbar-brand" href="{% url 'pages:imagens' %}">Minhas imagens</a>
-                    {% endif %}
-                </div>
-                <ul class="navbar-nav">
-                    {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_logout' %}">Sair</a>
-                    </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_login' %}">Entrar</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_signup' %}">Cadastro</a>
-                    </li>
-                    {% endif %}
-                </ul>
-            </div>
-        </nav>
-    </header>
 
-    <main class="container">
+<body style=" background: #E4E9F7;">
+    <div class="sidebar">
+        <div class="logo-details">
+            <i class='bx bx-laptop'></i>
+            <span class="logo_name">CornView</span>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="{% url 'pages:home' %}">
+                    <i class='bx bx-home'></i>
+                    <span class="link_name">Página Inicial</span>
+                </a>
+            </li>
+            {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'pages:up' %}">
+                    <i class='bx bx-camera'></i>
+                    <span class="link_name">Enviar Imagem</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'pages:imagens' %}">
+                    <i class='bx bx-code-alt'></i>
+                    <span class="link_name">Processamento</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-shopping-bag'></i>
+                    <span class="link_name">Loja</span>
+                </a>
+            </li>
+            <li>
+                <div class="profile-details">
+                    <div class="profile-content">
+                    </div>
+                    <div class="name-job">
+                        <div class="profile_name">Prem Shahi</div>
+                    </div>
+                    <a href="{% url 'account_logout' %}">
+                        <i class='bx bx-log-out'></i>
+                    </a>
+                </div>
+            </li>
+            {% else %}
+            <li>
+                <div class="profile-details">
+                    <a href="{% url 'account_login' %}">
+                        <i class='bx bx-caret-right-circle'></i>
+                        <span class="link_name">Login</span>
+                    </a>
+                </div>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <main class="home-section">
         {% block content %}
         {% endblock %}
     </main>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>
