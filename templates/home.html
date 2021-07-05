@@ -5,9 +5,40 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-    {% csrf_token %}
-    {{ form|crispy }}
-    <h3 class="text-center pt-5"> Sitema de detecção e contagem de plantas de milho</h3>
-
-    <a class="nav-link text-center btn-primary my-5" href="{% url 'pages:up' %}" style="max-width: 200px; margin-left: auto; margin-right: auto; ">Inciar</a>
+{% csrf_token %}
+{{ form|crispy }}
+<div class="titulo1"> Sobre o CornView </div>
+<div class="sobre">
+    <div class="row">
+        <img class="imagem-home1 col-4" src="static/milho.jpg">
+        <p class="col-7 align-self-center">O CornView é um sistema para detecção e contagem de plantas de milhos que
+            trabalha com uma inteligência artificial
+            especificamente treinada para identificação de plantas em imagens aéreas.
+            <br><br>
+            Nossa aplicação ainda está em fase de teste e sua ajuda é de extrema importância para que possamos
+            melhorá-la cada vez mais,
+            contribua com o seu uso e nos de o seu feedback.
+        </p>
+    </div>
+</div>
+<div class="sobre" style="margin-top: 3%;">
+    <div class="row">
+        <div class="col-4 align-self-center">
+            <p class="titulo2 ">O Processamento
+            </p>
+            <p> Suas imagens podem ser enviadas no menu ENVIAR IMAGEM, lembrando que as imagens precisam ter uma boa qualidade e resolução para que os resultados sejam satisfatorios.
+                <br>
+                Logo apos o envio o processamento sera iniciado e voce recebera os resultados no seu email de cadastro.
+            </p>
+        </div>
+        <img class="imagem-home2 col-7" src="static/aaaa.png">
+    </div>
+    <div class="row">
+        <p class="col-4 align-self-center">
+        </p>
+        <p class="descricao col-7 align-self-center" style="margin-left: 5%; ">A imagem da representação foi obtida por
+            um drone com uma câmera embarcada de 20MP a uma altura de 55 metros.
+        </p>
+    </div>
+</div>
 {% endblock %}

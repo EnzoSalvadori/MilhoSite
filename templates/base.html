@@ -42,7 +42,13 @@
             <li>
                 <a href="#">
                     <i class='bx bx-shopping-bag'></i>
-                    <span class="link_name">Loja</span>
+                    <span class="link_name">Loja De Pacotes</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-mail-send'></i>
+                    <span class="link_name">Nosso Contato</span>
                 </a>
             </li>
             <li>
@@ -50,7 +56,7 @@
                     <div class="profile-content">
                     </div>
                     <div class="name-job">
-                        <div class="profile_name">Prem Shahi</div>
+                        <div class="profile_name">{{user.username}}</div>
                     </div>
                     <a href="{% url 'account_logout' %}">
                         <i class='bx bx-log-out'></i>

@@ -79,7 +79,6 @@ $(function( $ ){
  * @param {File} file
  */
 function updateThumbnail(dropZoneElement, file) {
-
   var imagem = document.getElementById("imagem");
   var formato = imagem.value.split(".");
   formato = (formato[formato.length - 1]).toUpperCase()
@@ -106,9 +105,12 @@ function updateThumbnail(dropZoneElement, file) {
   thumbnailElement.dataset.label = file.name;
 
   // Show thumbnail for image files
-  if (file.type.startsWith("image/")) {
+  if (file.type.startsWith("image/")) { 
+    if(file.name.split('.').pop().toUpperCase() == "TIFF" || file.name.split('.').pop().toUpperCase() == "TIF"){
+      thumbnailElement.style.backgroundImage = 'url("/static/placeholder.jpg")';
+      return;
+    }
     const reader = new FileReader();
-
     reader.readAsDataURL(file);
     reader.onload = () => {
       thumbnailElement.style.backgroundImage = `url('${reader.result}')`;

@@ -63,7 +63,7 @@
   transition: all 0.4s ease;
 }
 .sidebar .nav-links li:hover{
-  background: #1d1b31;
+  background: #1a2b2b;
 }
 .sidebar .nav-links li .iocn-link{
   display: flex;
@@ -238,8 +238,8 @@
 }
 
 .drop-zone {
-  max-width: 600px;
-  height: 400px;
+  max-width: 60%;
+  height: 70vh;
   padding: 25px;
   display: flex;
   align-items: center;
@@ -288,10 +288,55 @@
 }
 
 .progress {
-	visibility: hidden;
-	margin-left: auto;
-  	margin-right: auto;
-  	margin-top: 25px;
-    margin-bottom: 50px;
-  	max-width: 500px;
+  visibility: hidden;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 25px;
+  margin-bottom: 50px;
+  max-width: 500px;
 }
+
+.titulo1 {
+	background-color: #072530;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	font-size: 4.8vh;
+	font-weight: bold;
+	color: #FFF;
+}
+
+.titulo2 {
+	text-align: center;
+	font-size: 3.8vh;
+	font-weight: bold;
+	color: #000;
+}
+
+.sobre {
+	text-align: justify;
+	font-size: 2.05vh;
+	margin-top: 100px;
+	margin-right: 120px;
+	margin-left: 150px;
+	padding: auto;
+	color: #4d4d4d;
+}
+
+.imagem-home1 {
+	margin-right: 5%;	
+}
+
+.imagem-home2 {
+	margin-left: 5%;
+}
+
+.descricao {
+	font-family: Arial, Helvetica, sans-serif;
+	margin-top: 0.9vh;
+	font-size: 1.5vh;
+	color: #000;
+}
+
+
+
+
