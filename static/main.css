@@ -316,8 +316,8 @@
 	text-align: justify;
 	font-size: 2.05vh;
 	margin-top: 3%;
-	margin-right: 100px;
-	margin-left: 150px;
+	margin-right: 30px;
+	margin-left: 70px;
 	padding: auto;
 	color: #4d4d4d;
 }
@@ -337,6 +337,15 @@
 	color: #000;
 }
 
-
+.sobre-contas {
+	text-align: left;
+  margin-top: 0px;
+  margin-bottom: 10px;
+	font-size: 2vh;
+	margin-right: 60px;
+	margin-left: 70px;
+	padding: auto;
+	color: #4d4d4d;
+}
 
 

@@ -20,32 +20,32 @@
             <span class="logo_name">CornView</span>
         </div>
         <ul class="nav-links">
-            <li>
+            <li id="home">
                 <a href="{% url 'pages:home' %}">
                     <i class='bx bx-home'></i>
                     <span class="link_name">Página Inicial</span>
                 </a>
             </li>
             {% if user.is_authenticated %}
-            <li>
+            <li id="up">
                 <a href="{% url 'pages:up' %}">
                     <i class='bx bx-camera'></i>
                     <span class="link_name">Enviar Imagem</span>
                 </a>
             </li>
-            <li>
+            <li id="proc">
                 <a href="{% url 'pages:imagens' %}">
                     <i class='bx bx-code-alt'></i>
                     <span class="link_name">Processamento</span>
                 </a>
             </li>
-            <li>
+            <li id="shop">
                 <a href="#">
                     <i class='bx bx-shopping-bag'></i>
                     <span class="link_name">Loja De Pacotes</span>
                 </a>
             </li>
-            <li>
+            <li id="msg">
                 <a href="#">
                     <i class='bx bx-mail-send'></i>
                     <span class="link_name">Nosso Contato</span>
@@ -64,7 +64,19 @@
                 </div>
             </li>
             {% else %}
-            <li>
+            <li id="shop">
+                <a href="#">
+                    <i class='bx bx-shopping-bag'></i>
+                    <span class="link_name">Loja De Pacotes</span>
+                </a>
+            </li>
+            <li id="msg">
+                <a href="#">
+                    <i class='bx bx-mail-send'></i>
+                    <span class="link_name">Nosso Contato</span>
+                </a>
+            </li>
+            <li id="login">
                 <div class="profile-details">
                     <a href="{% url 'account_login' %}">
                         <i class='bx bx-caret-right-circle'></i>
