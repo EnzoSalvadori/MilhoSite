@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Processando{% endblock %}
+
+{% block content %}
+{{ form|crispy }}
+
+<script>
+    var nav = document.getElementById("proc");
+    nav.style.backgroundColor = "#1a2b2b";
+</script>
+<div class="titulo1"> Processamento </div>
+
+<div class="relatorio">
+    {% if imagem|length == 0 %}
+    <script>
+        alert("nenhuma imagem em processamento no momento")
+        window.location.href = '/'
+    </script>
+    {% endif %}
+    {% for i in imagem %}
+    <input type="hidden" id="src" value="../media/{{ i.imagemOrg }}">
+    <div class="row">
+        <div class="relatorio-cont col-5" id="div-cont">
+            <p style="margin-bottom: 5vh;">{{ i.imagemOrg }}</p>
+            <img src="../media/{{ i.imagemOrg }}" class="img-relatorio">
+            <div style="margin-bottom: 5vh;"></div>
+            <script>
+                src = document.getElementById("src").value;
+                var img = new Image();
+                img.src = src;
+                console.log(img.width);
+                var divNova = document.createElement("div");
+                var p1 = document.createElement("p");
+                p1.innerHTML = "Altura: " + String(img.height);
+                divNova.appendChild(p1);
+                var p2 = document.createElement("p");
+                p2.innerHTML = "Largura: " + String(img.width);
+                divNova.appendChild(p2);
+                var divAtual = document.getElementById("div-cont");
+                divAtual.appendChild(divNova);
+            </script>
+        </div>
+        <div class="col-5 align-self-center">
+            <p class="titulo2 ">processando</p>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+
+{% endblock %}

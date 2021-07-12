@@ -22,13 +22,13 @@ def up(request):
 			if (usuario.premium == "0"):
 				if (usuario.espaco + uploaded_file.size <= LIMITE1):
 					usuario.espaco = usuario.espaco + uploaded_file.size
-					cornImg = Imagem.objects.create_Imagem(uploaded_file,"default.jpg","0",usuario)
+					cornImg = Imagem.objects.create_Imagem(uploaded_file,"default.jpg","1",usuario)
 					usuario.save()
 					cornImg.save()
 			if (usuario.premium == "1"):
 				if (usuario.espaco + uploaded_file.size <= LIMITE2):
 					usuario.espaco = usuario.espaco + uploaded_file.size
-					cornImg = Imagem.objects.create_Imagem(uploaded_file,"default.jpg","0",usuario)
+					cornImg = Imagem.objects.create_Imagem(uploaded_file,"default.jpg","1",usuario)
 					usuario.save()
 					cornImg.save()
 			oldName = cornImg.imagemOrg
@@ -65,5 +65,11 @@ def imagens(request):
 def processo(request,id_img):
 	imagem = Imagem.objects.filter(id = id_img)
 	return render(request, 'processo.html',{'imagem' : imagem})
+
+@verified_email_required
+def processando(request):
+	print(request.user)
+	imagem = Imagem.objects.filter(processada = "1", fk_user = request.user)
+	return render(request, 'processando.html',{'imagem' : imagem})
 
 	

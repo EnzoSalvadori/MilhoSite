@@ -4,6 +4,7 @@ from .views import home
 from .views import up
 from .views import imagens
 from .views import processo
+from .views import processando
 
 
 app_name = "pages"
@@ -12,5 +13,6 @@ urlpatterns = [
     path("", home, name="home"),
     path("upload/", up, name="up"),
     path("imagens/", imagens, name="imagens"),
+    path("processando/", processando, name="processando"),
     path("processo/<int:id_img>", processo, name="proc"),
 ]

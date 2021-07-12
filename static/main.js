@@ -65,8 +65,7 @@ $(function( $ ){
       processData: false,
       contentType: false,
       success: function () {
-        console.log('File uploaded!');
-        window.location.href = '/imagens/'
+        window.location.href = '/processando/'
       }
     });
   });

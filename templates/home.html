@@ -2,7 +2,7 @@
 
 {% load crispy_forms_tags %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Página Inicial{% endblock %}
 
 {% block content %}
 {% csrf_token %}
@@ -10,7 +10,6 @@
 
 <script>
     var nav = document.getElementById("home");
-    console.log(nav)
     nav.style.backgroundColor = "#1a2b2b";
 </script>
 
@@ -37,9 +36,9 @@
             <p class="titulo2 ">Processamento
             </p>
             <p> Suas imagens podem ser enviadas no menu ENVIAR IMAGEM, lembrando que as imagens precisam ter uma boa
-                qualidade e resolução para que os resultados sejam satisfatorios.
+                qualidade e resolução para que os resultados sejam satisfatórios.
                 <br>
-                Logo apos o envio o processamento sera iniciado e voce recebera os resultados no seu email de cadastro.
+                Logo após o envio o processamento será iniciado e você recebera os resultados no seu e-mail de cadastro.
             </p>
         </div>
         <img class="imagem-home2 col-7" src="static/aaaa.png">
@@ -56,14 +55,13 @@
 <div class="conta" style="margin-bottom: 3%;">
     <p class="titulo2 "> Sua Conta
     </p>
-    <li class="sobre-contas">Cada usuario do CornView tem um limite de envio de 5 imagens com tamanho maximo de 1 GB.
+    <li class="sobre-contas">Cada usuário do CornView tem um limite de envio de 5 imagens com tamanho máximo de 1 GB.
     </li>
     <li class="sobre-contas">15 dias após o processamento de uma imagem é feito uma limpeza automatizada da base de
         dados. </li>
-    <li class="sobre-contas">É recomendado sempre baixar a imagem e os relatorios enviados no email.</li>
+    <li class="sobre-contas">É recomendado sempre baixar a imagem e os relatórios enviados no e-mail.</li>
     <li class="sobre-contas" style="margin-bottom: 0px;"> Caso sua demanda ultrapasse os limites estabelecidos ou ainda
-        tenha alguma duvida, entre em contanto com a nossa equipe
-        LINK.
+        tenha alguma duvida, entre em contanto com a nossa equipe LINK.
     </li>
 </div>
 {% if user.is_authenticated %}
