@@ -9,9 +9,12 @@
 
 {% for i in imagem %}
 <div class="text-center">
-    <h3 class="pt-5"> Imagem {{ i.id }}</h3>
+    <div class="titulo1 mb-5">{{ i.imagemOrg }}</div>
     <img class="mt-5" src="../media/{{ i.imagemPro }}" alt="My image" width="640" height="480" name="img">
     <h3 class="pt-5"> Plantas de milho contadas: {{ i.quantPlantas }}</h3>
+    <a class="btn btn-primary mt-5 px-5 py-2" download="custom-filename.jpg" href="../media/{{ i.imagemPro }}" title="ImageName">
+        Baixar imagem
+    </a>
 </div>
 {% endfor %}
 {% endblock %}

@@ -47,19 +47,34 @@
         <p class="col-4 align-self-center">
         </p>
         <p class="descricao col-7 align-self-center" style="margin-left: 5%; ">A imagem da representação foi obtida por
-            um drone com uma câmera embarcada de 20MP a uma altura de 55 metros.
+            um drone com uma câmera embarcada de 20MP, a uma altura de 55 metros com plantas em estágio V3.
         </p>
+    </div>
+</div>
+<div class="sobre" style="margin-top: 1%; margin-bottom: 3%;">
+    <div class="row">
+        <img class="imagem-home1 col-4" src="static/milho.jpg">
+        <div class="col-1"></div>
+        <div class="col-5 align-self-center">
+            <p class="titulo2 "> Sua imagem
+            </p>
+            <li >Deve apresentar plantas em estágio de crescimento V3.</li>
+            <div style="margin-top:2vh;"></div>
+            <li >Ser obtida por um drone a uma altura média de 55 metros.</li>
+            <div style="margin-top:2vh;"></div>
+            <li style="text-align: left;">Ser obtida com uma câmera de qualidade próxima a 20MP.</li>
+        </div>
     </div>
 </div>
 <hr style="margin-top: 1%; margin-bottom: 1%;">
 <div class="conta" style="margin-bottom: 3%;">
     <p class="titulo2 "> Sua Conta
     </p>
-    <li class="sobre-contas">Cada usuário do CornView tem um limite de envio de 5 imagens com tamanho máximo de 1 GB.
+    <li class="sobre-contas">Cada usuário do CornView tem em sua conta um armazenamento de 1 GB, podendo enviar imagens de no máximo  500 MB.
     </li>
-    <li class="sobre-contas">15 dias após o processamento de uma imagem é feito uma limpeza automatizada da base de
+    <li class="sobre-contas">15 dias após o processamento de uma imagem é feito uma limpeza automática   da base de
         dados. </li>
-    <li class="sobre-contas">É recomendado sempre baixar a imagem e os relatórios enviados no e-mail.</li>
+    <li class="sobre-contas">É recomendado sempre baixar os relatórios e resultados enviados no e-mail.</li>
     <li class="sobre-contas" style="margin-bottom: 0px;"> Caso sua demanda ultrapasse os limites estabelecidos ou ainda
         tenha alguma duvida, entre em contanto com a nossa equipe LINK.
     </li>
@@ -67,6 +82,6 @@
 {% if user.is_authenticated %}
 <a class="btn btn-primary px-5" style="margin-bottom: 3%;" href="{% url 'pages:up' %}">Inicie seu projeto</a>
 {% else %}
-<a class="btn btn-primary px-5" style="margin-bottom: 3%;" href="{% url 'account_signup' %}">Cadastre-se</a>
+<a class="btn btn-primary px-5" style="margin-bottom: 3%;" href="{% url 'account_signup' %}">Crie sua conta</a>
 {% endif %}
 {% endblock %}

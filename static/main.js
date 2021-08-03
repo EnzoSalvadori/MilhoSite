@@ -34,13 +34,75 @@ document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
   });
 });
 
-$(function( $ ){
+$(function ($) {
+
+  //fazer uma validação para entrar aqui so no processamento
+  if (document.getElementById("img-pro")) {
+    $.ajax({
+      url: "../json",
+      type: 'GET',
+      dataType: 'json', // added data type
+      success: function (res) {
+        console.log(res.data)
+        if (res.data == "fila") {
+          var div = document.getElementById("div-cont");
+          var fila = document.createElement("p");
+          fila.style.textAlign = 'center';
+          fila.style.fontSize = '2vh';
+          fila.style.marginTop = '4vh';
+          fila.setAttribute('id', "fila");
+          fila.innerHTML = "Seu processamento está na fila de espera, aguarde um instante."
+          div.appendChild(fila);
+          var fila2 = document.createElement("p");
+          fila2.style.textAlign = 'center';
+          fila2.style.fontSize = '1.2vh';
+          fila2.setAttribute('id', "fila2");
+          fila2.innerHTML = "Lembrando que você não precisa aguardar nesta página, assim que seu processamento terminar todos os dados serão enviados no seu e-mail."
+          div.appendChild(fila2);
+        }
+        $('#progressBar').attr('aria-valuenow', res.data).css('width', res.data + '%').text(res.data + '%');
+        if (res.data == 100) {
+          console.log("terminou")
+        }
+      }
+    });
+    const intervalLength = 3000;
+    const interval = setInterval(() => {
+      $.ajax({
+        url: "../json",
+        type: 'GET',
+        dataType: 'json', // added data type
+        success: function (res) {
+          $('#progressBar').attr('aria-valuenow', res.data).css('width', res.data + '%').text(res.data + '%');
+          if (res.data != "fila") {
+            try {
+              document.getElementById("fila").remove();
+              document.getElementById("fila2").remove();
+            } catch (error) {
+    
+            }
+          }
+          if (res.data == 100) {
+            var div = document.getElementById("div-cont");
+            var verimgs = document.createElement("a");
+            verimgs.setAttribute("href","../imagens");
+            verimgs.style.textAlign = 'center';
+            verimgs.innerHTML = "Vizualizar seus resultados";
+            div.appendChild(verimgs);
+            clearInterval(interval);
+          }
+        }
+      });
+    }, intervalLength);
+  }
+  let xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://viacep.com.br/ws/88040400/json');
   $('form').on('submit', function (event) {
     event.preventDefault();
     var imagem = document.getElementById("imagem");
     var botao = document.getElementById("botao");
     var barra = document.getElementById("barra");
-    if (imagem.value == ""){
+    if (imagem.value == "") {
       alert('Por favor selecione um arquivo para envio');
       return;
     }
@@ -48,17 +110,17 @@ $(function( $ ){
     botao.disabled = true;
     var formData = new FormData($('form')[0]);
     $.ajax({
-      xhr : function() {
-				var xhr = new window.XMLHttpRequest();
-				xhr.upload.addEventListener('progress', function(e) {
-					if (e.lengthComputable) {
+      xhr: function () {
+        var xhr = new window.XMLHttpRequest();
+        xhr.upload.addEventListener('progress', function (e) {
+          if (e.lengthComputable) {
             var percent = Math.round((e.loaded / e.total) * 100);
             barra.style.visibility = "visible";
-						$('#progressBar').attr('aria-valuenow', percent).css('width', percent + '%').text(percent + '%');
-					}
-				});
-				return xhr;
-			},
+            $('#progressBar').attr('aria-valuenow', percent).css('width', percent + '%').text(percent + '%');
+          }
+        });
+        return xhr;
+      },
       type: 'POST',
       url: '/upload/',
       data: formData,
@@ -104,8 +166,8 @@ function updateThumbnail(dropZoneElement, file) {
   thumbnailElement.dataset.label = file.name;
 
   // Show thumbnail for image files
-  if (file.type.startsWith("image/")) { 
-    if(file.name.split('.').pop().toUpperCase() == "TIFF" || file.name.split('.').pop().toUpperCase() == "TIF"){
+  if (file.type.startsWith("image/")) {
+    if (file.name.split('.').pop().toUpperCase() == "TIFF" || file.name.split('.').pop().toUpperCase() == "TIF") {
       thumbnailElement.style.backgroundImage = 'url("/static/placeholder.jpg")';
       return;
     }

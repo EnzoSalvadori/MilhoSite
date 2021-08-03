@@ -20,19 +20,16 @@
 
 </script>
 
-<h3 class="text-center pt-5 mb-5"> Sitema de detecção e contagem de plantas de milho</h3>
-<div class="container">
+<div class="titulo1">Minhas imagens</div>
+<div class="container mt-5">
     <div class="row">
         {% for i in imagens %}
         <form method="POST" class="col-6 text-center" id="formID" enctype="multipart/form-data">
             {% csrf_token %}
             <input type="hidden" name="id" value="{{ i.id }}">
-            <img src="../media/{{ i.imagemOrg }}" alt="My image" width=480 height=270 name="img">
-            {% if i.processada == "0" %}
-                <button class="btn btn-primary my-3" id="{{ i.id }}" type="submit" onclick="desabilita('{{ i.id }}')">Inciar contagem</button>
-            {% endif %}
+            <img src="../media/{{ i.tumb }}" alt="My image" width=480 height=270 name="img">
             {% if i.processada == "1" %}
-                <button class="btn btn-primary my-3" id="{{ i.id }}" type="submit" disabled>Em processamento</button>
+                <a class="btn btn-primary my-3" id="{{ i.id }}" href="{% url 'pages:processando' %}" >Visualizar processamento</a>
             {% endif %}
             {% if i.processada == "2" %}
                 <button class="btn btn-primary my-3" id="{{ i.id }}" type="submit">Visualizar resultados</button>

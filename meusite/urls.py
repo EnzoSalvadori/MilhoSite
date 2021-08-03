@@ -14,15 +14,25 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
+from allauth.account import views
 
 urlpatterns = [
     #django admin
     path('admin/', admin.site.urls),
     #user management
-    path('accounts/', include("allauth.urls")),
+    #path('accounts/', include("allauth.urls")),
+    path("signup/", views.signup, name="account_signup"),
+    path("login/", views.login, name="account_login"),
+    path("accounts/login/", views.login, name="account_login"),
+    path("logout/", views.logout, name="account_logout"),
+     re_path(
+        r"^confirm-email/(?P<key>[-:\w]+)/$",
+        views.confirm_email,
+        name="account_confirm_email",
+    ),
     #contagemMilho
     path("", include("milho.urls", namespace="mihlo")),
 ] 

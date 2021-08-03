@@ -23,14 +23,14 @@
             <li id="home">
                 <a href="{% url 'pages:home' %}">
                     <i class='bx bx-home'></i>
-                    <span class="link_name">Página Inicial</span>
+                    <span class="link_name">Página inicial</span>
                 </a>
             </li>
             {% if user.is_authenticated %}
             <li id="up">
                 <a href="{% url 'pages:up' %}">
                     <i class='bx bx-camera'></i>
-                    <span class="link_name">Enviar Imagem</span>
+                    <span class="link_name">Enviar imagem</span>
                 </a>
             </li>
             <li id="proc">
@@ -42,19 +42,19 @@
             <li id="img">
                 <a href="{% url 'pages:imagens' %}">
                     <i class='bx bx-photo-album'></i>
-                    <span class="link_name">Minhas Imagens</span>
+                    <span class="link_name">Minhas imagens</span>
                 </a>
             </li>
-            <li id="shop">
-                <a href="#">
-                    <i class='bx bx-shopping-bag'></i>
-                    <span class="link_name">Loja De Pacotes</span>
+            <li id="proj">
+                <a href="{% url 'pages:projetos' %}">
+                    <i class='bx bx-paste'></i>
+                    <span class="link_name">Projetos futuros</span>
                 </a>
             </li>
-            <li id="msg">
-                <a href="#">
-                    <i class='bx bx-mail-send'></i>
-                    <span class="link_name">Nosso Contato</span>
+            <li id="ajudeCont">
+                <a href="{% url 'pages:ajudeCont' %}">
+                    <i class='bx bx-dollar-circle'></i>
+                    <span class="link_name">Contato e Apoio</span>
                 </a>
             </li>
             <li>
@@ -62,7 +62,17 @@
                     <div class="profile-content">
                     </div>
                     <div class="name-job">
-                        <div class="profile_name">{{user.username}}</div>
+                        <div class="profile_name" id="username">
+                            {% if user.username|length <= 16 %}
+                                {{user.username}}
+                            {% else %}
+                            <script type="text/javascript"> 
+                                username = "{{user.username}}";
+                                username = username.substring(0, 13) + "...";
+                                document.getElementById("username").innerHTML = username;
+                            </script>
+                            {% endif %}
+                        </div>
                     </div>
                     <a href="{% url 'account_logout' %}">
                         <i class='bx bx-log-out'></i>
@@ -70,23 +80,29 @@
                 </div>
             </li>
             {% else %}
-            <li id="shop">
-                <a href="#">
-                    <i class='bx bx-shopping-bag'></i>
-                    <span class="link_name">Loja De Pacotes</span>
+            <li id="proj">
+                <a href="{% url 'pages:projetos' %}">
+                    <i class='bx bx-paste'></i>
+                    <span class="link_name">Projetos futuros</span>
                 </a>
             </li>
-            <li id="msg">
-                <a href="#">
-                    <i class='bx bx-mail-send'></i>
-                    <span class="link_name">Nosso Contato</span>
+            <li id="ajudeCont">
+                <a href="{% url 'pages:ajudeCont' %}">
+                    <i class='bx bx-dollar-circle'></i>
+                    <span class="link_name">Contato e Apoio</span>
+                </a>
+            </li>
+            <li id="signup">
+                <a href="{% url 'account_signup' %}">
+                    <i class='bx bx-user'></i>
+                    <span class="link_name">Criar conta</span>
                 </a>
             </li>
             <li id="login">
                 <div class="profile-details">
                     <a href="{% url 'account_login' %}">
                         <i class='bx bx-caret-right-circle'></i>
-                        <span class="link_name">Login</span>
+                        <span class="link_name">Fazer login</span>
                     </a>
                 </div>
             </li>

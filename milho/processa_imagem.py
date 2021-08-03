@@ -1,17 +1,20 @@
 import keras
+import os
 from keras_retinanet import models
 from keras_retinanet.utils.image import read_image_bgr, preprocess_image, resize_image
 from keras_retinanet.utils.visualization import draw_box, draw_caption
 from keras_retinanet.utils.colors import label_color
 from milho.models import Imagem
 from django.shortcuts import render
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
 import matplotlib.pyplot as plt
 import cv2
-import os
 import numpy as np
-import time
 import pandas
 import tensorflow as tf
+import psutil
+
 THRES_SCORE = 0.5
 
 square_size = 500
@@ -53,7 +56,7 @@ def calculaHW(h,w):
 			contw += 1
 	return(conth,contw)
 
-def cropImagem(img,conth,contw,id_img):
+def cropImagem(img,conth,contw,id_img,userEmail):
 	boxes3 = []
 	scores3 = []
 	boxes4 = []
@@ -94,8 +97,8 @@ def cropImagem(img,conth,contw,id_img):
 			if (cropW2+(square_size/2)) < X:
 				crop_img = img[cropH1:cropH2, int(cropW1+(square_size/2)):int(cropW2+(square_size/2))]
 				detect(crop_img,cropH1,int(cropW1+(square_size/2)),boxes3,scores3)
-
-			print(len(boxes3))
+				
+		Imagem.objects.filter(id=id_img).update(porcentagemPro=(((i+1)*(contw)*100/(conth*contw)))-1)
 
 	selected_indices = tf.image.non_max_suppression(
 		boxes3, scores3, (len(boxes3)), iou_threshold=0.1
@@ -104,20 +107,17 @@ def cropImagem(img,conth,contw,id_img):
 	cont = 0
 	for i in selected_indices:
 		cont += 1
-		print(cont)
 		boxes4.append(boxes3[i])
 		scores4.append(scores3[i])
 
-	desenha(img,boxes4,scores4,id_img)    
+	desenha(img,boxes4,scores4,id_img,userEmail)    
 				
 def detect(image,H,W,boxes3,scores3):
 	# preprocess image for network
 	image = preprocess_image(image)
 	image, scale = resize_image(image)
 	# process image
-	start = time.time()
 	boxes, scores, labels = model.predict_on_batch(np.expand_dims(image, axis=0))
-	print("processing time: ", time.time() - start)
 	# correct for image scale
 	boxes /= scale
 	boxes2 = tf.squeeze(boxes)
@@ -133,7 +133,7 @@ def detect(image,H,W,boxes3,scores3):
 		boxes3.append(boxes[0][i])
 		scores3.append(scores[0][i])
 
-def desenha(image,boxes,scores,id_img):
+def desenha(image,boxes,scores,id_img,userEmail):
 	draw = image.copy()
 	cont = 0
 	# visualize detections
@@ -141,26 +141,57 @@ def desenha(image,boxes,scores,id_img):
 	  # scores are sorted so we can break
 		if scores[i] > THRES_SCORE:
 			cont +=1
-			cv2.rectangle(draw,(int(boxes[i][0]),int(boxes[i][1])),(int(boxes[i][2]),int(boxes[i][3])),(0,0,255),2)
+			meioX = int((boxes[i][2] - boxes[i][0])/2 + boxes[i][0])
+			meioY = int((boxes[i][3] - boxes[i][1])/2 + boxes[i][1])
+			cv2.circle(draw,(meioX,meioY), 3, (0,0,255), -1)
 	#alterando os novos dados no banco 
-	cv2.imwrite("media\\processada"+str(id_img)+".JPG", draw)
-	salva(cont,"processada"+str(id_img)+".JPG",id_img)
+	imagem = Imagem.objects.filter(id=id_img)
+	cv2.imwrite("media\\CV_"+str(imagem[0].imagemOrg)+".JPG", draw)
+	salva(cont,"CV_"+str(imagem[0].imagemOrg)+".JPG",id_img,userEmail,imagem)
 
-def salva(cont,draw,id_img):
-	imagem = Imagem.objects.filter(id=id_img).update(imagemPro=draw,quantPlantas=cont,processada="2")
+def salva(cont,draw,id_img,userEmail,imagem):
+	imagem.update(imagemPro=draw,quantPlantas=cont,processada="2",porcentagemPro=100)
+	ctx = {
+	'nome': str(imagem[0].imagemOrg) ,
+	'plantas': str(imagem[0].quantPlantas),
+	'imagemPro': "http://127.0.0.1:8000/relatorio/"+str(imagem[0].id)
+	}
+	sendMail(userEmail,ctx,"reultado_email.html","Relatório")
 
-def processa(path_img,id_img,fk_user):
+# 0 inicial
+# 1 em processamento
+# 2 processada
+
+def sendMail(email,ctx,html,sobre):
+		subject, from_email, to = sobre, 'cornview@cornview.com', email
+		text_content = ''
+		html_content = render_to_string(html, ctx)
+		msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+		msg.attach_alternative(html_content, "text/html")
+		msg.send()
+
+def processa(path_img,id_img,userEmail):
+	imagem = Imagem.objects.filter(id=id_img)
+	imagem.update(processada = "1")
+	#imagem foi para area de processamento
+	if (psutil.virtual_memory()[2] >= 80): #se a menoria do servidor ja esta com se uso em 80% ou mais enviar a imagem para a fila 
+		Imagem.objects.filter(id=id_img).update(fila=True)
+		return
+	#se tudo estiver correto apenas processar a imagem
 	try:
 		img = cv2.imread(path_img)
 		divh, divw = calculaHW(img.shape[0],img.shape[1])
-		cropImagem(img,divh,divw,id_img)
+		cropImagem(img,divh,divw,id_img,userEmail)
 	except Exception as e:
-		print("Erro no processamento")
 		print(e)
-		Imagem.objects.filter(id=id_img).update(processada="0")
-		#mudar valor do campo processada para de erro e enviar um email para a conta da imagem avisando que um erro inesperado aconteceu 
+		ctx = {
+		'user': userEmail.split("@")[0],
+		'imagem': imagem[0].imagemOrg
+		}
+		sendMail(userEmail,ctx,"erro_email.html","Erro inesperado")
+		Imagem.objects.filter(id=id_img).update(fila=True,processada=1) #imagem com erro no processamento vai para fila esperar para um novo processamento
+		#enviar um email para a conta da imagem avisando que um erro inesperado aconteceu 
 	
-
 #img = cv2.imread(path_img)
 #divh, divw = calculaHW(img.shape[0],img.shape[1])
 #cropImagem(img,divh,divw,id_img)

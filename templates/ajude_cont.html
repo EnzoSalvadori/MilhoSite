@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Contato e Apoie{% endblock %}
+
+{% block content %}
+{% csrf_token %}
+{{ form|crispy }}
+
+<script>
+    var nav = document.getElementById("ajudeCont");
+    nav.style.backgroundColor = "#1a2b2b";
+</script>
+
+<div class="titulo1">Contato e Apoio</div>
+<div class="pix">
+    <p class="pix-msg">Ajude a mantermos o projeto!</p>
+    <p class="pix-msg" >Deixar o site online gera custos, toda ajuda é bem-vinda.</p>
+    <p class="titulo3">PIX</p>
+    <img class="pix-img" src="../static/QRcode.png">
+    <p class="pix-msg" style="margin-top: 3vh;"> Chave: enzosalvadori17@gmail.com</p>
+</div>
+<div class="contato">
+    <p class="titulo2 "> Contato
+    </p>
+    <div class="row">
+        <div class="col-3 mr-5">
+            <img class="contato-img" src="../static/cv.jpg">
+        </div>
+        <div class="col-8 align-self-center">
+            <p> E-mail: <a href="mailto:enzosalvadori17@gmail.com?Subject=Sobre o CornView">enzosalvadori17@gmail.com</a>
+            <p> Celular: <a href="https://api.whatsapp.com/send?phone=5542998650083">(42)998650083</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

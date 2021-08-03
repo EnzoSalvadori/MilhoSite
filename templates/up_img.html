@@ -10,28 +10,40 @@
     var espaco_usuario = "{{user.espaco}}";
     function valida_up() {
         if (tipo_usuario == "0") {
+            if (imagem.files.item(0).size > 524288000) {
+                alert("A imagem selecionada ultaprassou seu limite de 500 Mb.");
+                imagem.value = "";
+                return;
+            }
             if (imagem.files.item(0).size + parseInt(espaco_usuario) > 524288000) {
-                alert("A imagem enviada ultaprassou seu limite de 500 Mb");
+                alert("Seu limite de armazenamento ultrapassa o tamanho do arquivo selecionado.");
                 imagem.value = "";
                 return;
             }
         }
         if (tipo_usuario == "1") {
             if (imagem.files.item(0).size + parseInt(espaco_usuario) > 53687063712) {
-                alert("A imagem enviada ultaprassou seu limite de 50 GB");
+                alert("A imagem selecionada ultaprassou seu limite de 50 GB.");
                 imagem.value = "";
                 return;
             }
         }
     }
-
     var nav = document.getElementById("up");
-    console.log(nav)
     nav.style.backgroundColor = "#1a2b2b";
+
 </script>
 
 {{ form|crispy }}
 <div class="titulo1">Enviar imagem</div>
+
+{% if imagem|length > 0 %}
+<script>
+    alert("Uma imagem ja está em processamento, por favor aguarde o termino do mesmo para poder efetuar outro envio.")
+    window.location.href = '/processando'
+</script>
+{% endif %}
+
 <form method="POST" id="formID" enctype="multipart/form-data" class="mt-5 text-center">
     {% csrf_token %}
     {{ form|crispy }}
@@ -52,4 +64,3 @@
 
 <script src="../static/main.js"></script>
 {% endblock %}
-

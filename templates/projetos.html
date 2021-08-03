@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Projetos futuros{% endblock %}
+
+{% block content %}
+{% csrf_token %}
+{{ form|crispy }}
+
+<script>
+    var nav = document.getElementById("proj");
+    nav.style.backgroundColor = "#1a2b2b";
+</script>
+
+<div class="titulo1">Projetos futuros</div>
+<div class="sobre">
+    <div class="row">
+        <img class="imagem-home1 col-4" src="../static/valhein.png">
+        <div class="col-7 align-self-center">
+            <p class="titulo2 ">Detecção de linhas
+            <p>Para futuras implementações no processamento, planejamos abstrair através dos pontos de detecções as
+                linhas de plantio. Verificando assim as áreas de falhas e o espaçamento medio entre as
+                plantas.
+            </p>
+        </div>
+    </div>
+    <div class="row my-5">
+        <img class="imagem-home1 col-4" src="../static/valhein.png">
+        <div class="col-7 align-self-center">
+            <p class="titulo2 ">Imagens maiores
+            <p>A ideia do sistema é expandir para conseguirmos processar imagens de fazendas inteiras, possibilitando resultados mais amplos.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

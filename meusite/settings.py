@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "crispy_forms",
+    "anymail",
     # outros apps
     "milho.apps.MilhoConfig",
     "users.apps.UsersConfig",
@@ -124,7 +125,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
@@ -143,7 +143,15 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1
 LOGIN_REDIRECT_URL = "/"
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+#EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend" #email do console
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
+DEFAULT_FROM_EMAIL = "cornview@cornview.com"
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
+ANYMAIL = {
+    "MAILGUN_API_KEY": "39bbaa60c02eb3014da700887294791a-c485922e-ea5d3b64",
+    "MAILGUN_SENDER_DOMAIN": "mg.cornview.com",
+}#email de verdade
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 

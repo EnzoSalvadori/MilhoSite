@@ -312,6 +312,18 @@
 	color: #000;
 }
 
+.titulo3 {
+  margin: auto;
+  width: 40vh;
+  background-color: #5a8a78;
+  margin-bottom: 3vh;
+  margin-top: 3vh;
+  font-size: 4vh;
+  font-weight: bold;
+  color: #FFF;
+}
+
+
 .sobre {
 	text-align: justify;
 	font-size: 2.05vh;
@@ -333,14 +345,14 @@
 .descricao {
 	font-family: Arial, Helvetica, sans-serif;
 	margin-top: 0.9vh;
-	font-size: 1.5vh;
+	font-size: 1.4vh;
 	color: #000;
 }
 
 .sobre-contas {
 	text-align: left;
-  	margin-top: 0px;
-  	margin-bottom: 10px;
+  margin-top: 0px;
+  margin-bottom: 10px;
 	font-size: 2vh;
 	margin-right: 60px;
 	margin-left: 70px;
@@ -350,7 +362,6 @@
 
 
 .relatorio{
-	text-align: left;
 	margin-left: 5%;
 	margin-right: 5%;
 	margin-top: 3%;
@@ -359,6 +370,7 @@
 	background-color: #fff;
 	font-size: 3vh;
 	font-weight: bold;
+  border-radius: 25px;
 }
 
 .img-relatorio{
@@ -372,5 +384,76 @@
 	margin-right: 10vh;
 }
 
+.login{
+  background-color: #fff;
+  max-width: 50vh;
+  margin-left: auto;
+  margin-right: auto; 
+  padding: 8vh;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+  margin-top: 14vh;
+  border-radius: 25px;
+}
 
+.email-val{
+  background-color: #fff;
+  max-width: 80vh;
+  margin-left: auto;
+  margin-right: auto; 
+  padding: 8vh;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+  margin-top: 14vh;
+  border-radius: 25px;
+}
+
+.login-img{
+  margin-bottom: 5vh;
+  width: 15vh;
+}
+
+.contato{
+  background-color: #fff;
+  max-width: 140vh;
+  margin-left: auto;
+  margin-right: auto; 
+  padding: 8vh;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+  margin-top: 4vh;
+  margin-bottom: 6vh;
+  border-radius: 25px;
+  font-size: 3vh;
+  text-align: justify;
+}
+
+.contato-img{
+  width: 20vh;
+}
+
+.pix{
+  background-color: #fff;
+  max-width: 140vh;
+  margin-left: auto;
+  margin-right: auto; 
+  padding: 8vh;
+  padding-top: 5vh;
+  padding-bottom: 3vh;
+  margin-top: 6vh;
+  border-radius: 25px;
+  text-align: center;
+
+}
+
+.pix-msg{
+  margin-left: 20vh;
+  margin-right: 20vh; 
+  font-size: 2.5vh;
+  font-weight: bold;
+}
+
+.pix-img{
+  width: 30vh;
+}
 

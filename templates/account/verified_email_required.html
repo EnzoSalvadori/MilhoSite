@@ -7,16 +7,14 @@
 
 {% block content %}
 {% csrf_token %}
-<h1 class="text-center py-3">{% trans "Verify Your E-mail Address" %}</h1>
+<div class="email-val">
+    <h1 class="text-center py-3">{% trans "Verify Your E-mail Address" %}</h1>
 
-{% url 'account_email' as email_url %}
+    {% url 'account_email' as email_url %}
 
-<p>{% blocktrans %}This part of the site requires us to verify that
-you are who you claim to be. For this purpose, we require that you
-verify ownership of your e-mail address. {% endblocktrans %}</p>
-
-<p>{% blocktrans %}We have sent an e-mail to you for
-verification. Please click on the link inside this e-mail. Please
-contact us if you do not receive it within a few minutes.{% endblocktrans %}</p>
-
+    <p> Esta parte do site exige que verifiquemos se você é quem afirma ser. Para este propósito, enviamos um e-mail de
+        verificação. </p>
+    <p> Para efetuar a verificação apenas clique no link de verificação enviado ao e-mail e logo em seguida atualize a
+        página. </p>
+</div>
 {% endblock %}

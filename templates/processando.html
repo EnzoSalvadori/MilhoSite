@@ -13,43 +13,32 @@
 </script>
 <div class="titulo1"> Processamento </div>
 
+{% if imagem|length == 0 %}
+<script>
+    alert("Nenhuma imagem em processamento no momento.")
+    window.location.href = '/upload'
+</script>
+{% endif %}
+
 <div class="relatorio">
-    {% if imagem|length == 0 %}
-    <script>
-        alert("nenhuma imagem em processamento no momento")
-        window.location.href = '/'
-    </script>
-    {% endif %}
     {% for i in imagem %}
     <input type="hidden" id="src" value="../media/{{ i.imagemOrg }}">
     <div class="row">
-        <div class="relatorio-cont col-5" id="div-cont">
-            <p style="margin-bottom: 5vh;">{{ i.imagemOrg }}</p>
-            <img src="../media/{{ i.imagemOrg }}" class="img-relatorio">
-            <div style="margin-bottom: 5vh;"></div>
-            <script>
-                src = document.getElementById("src").value;
-                var img = new Image();
-                img.src = src;
-                console.log(img.width);
-                var divNova = document.createElement("div");
-                var p1 = document.createElement("p");
-                p1.innerHTML = "Altura: " + String(img.height);
-                divNova.appendChild(p1);
-                var p2 = document.createElement("p");
-                p2.innerHTML = "Largura: " + String(img.width);
-                divNova.appendChild(p2);
-                var divAtual = document.getElementById("div-cont");
-                divAtual.appendChild(divNova);
-            </script>
-        </div>
-        <div class="col-5 align-self-center">
-            <p class="titulo2 ">processando</p>
+        <div class="relatorio-cont col-10" id="div-cont" style="margin-top: 3vh;">
+            <p class="titulo2">Processando: {{ i.imagemOrg }}</p>
+            <img src="../media/{{ i.tumb }}" id="img-pro" class="img-relatorio" style="margin-bottom: 3vh;">
+            <p>Resolução: {{ i.largura }} ✖ {{ i.altura }}</p>
+            <p>Tamanho: {{ i.tamanho }} Mb</p>
+            <div class="progress" id="barra" style="background-color:grey; visibility: visible; margin-bottom: 3vh;">
+                <div id="progressBar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                    aria-valuemax="100" style="width: 0%">
+                    0%
+                </div>
+            </div>
         </div>
     </div>
     {% endfor %}
-
 </div>
 
-
+<script src="../static/main.js"></script>
 {% endblock %}
