@@ -7,6 +7,15 @@
   font-family: 'Poppins', sans-serif;
 }
 
+table, th, td {
+  font-size: 2.5vh;
+  border: 1px solid black;
+}
+
+th {
+  background-color: #2E8B57;
+}
+
 .sidebar{
   position: fixed;
   top: 0;
@@ -35,6 +44,7 @@
   line-height: 50px;
 }
 .sidebar .logo-details .logo_name{
+  margin-top: 1vh;
   font-size: 22px;
   color: #fff;
   font-weight: 600;
@@ -421,8 +431,7 @@
   padding: 8vh;
   padding-top: 5vh;
   padding-bottom: 5vh;
-  margin-top: 4vh;
-  margin-bottom: 6vh;
+  margin-top: 6vh;
   border-radius: 25px;
   font-size: 3vh;
   text-align: justify;
@@ -440,7 +449,8 @@
   padding: 8vh;
   padding-top: 5vh;
   padding-bottom: 3vh;
-  margin-top: 6vh;
+  margin-top: 4vh;
+  margin-bottom: 6vh;
   border-radius: 25px;
   text-align: center;
 
@@ -455,5 +465,11 @@
 
 .pix-img{
   width: 30vh;
+}
+
+.cv-img{
+  height: 6vh;
+  width: 7vh;
+  color: #fff;
 }
 

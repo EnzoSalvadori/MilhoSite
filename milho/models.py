@@ -23,6 +23,7 @@ class Imagem(models.Model):
     processada = models.CharField(max_length=1, default="0")
     fila = models.BooleanField(default=False)
     temp = models.DateTimeField(default=timezone.now)
+    area = models.FloatField(default=-1)
     fk_user = models.ForeignKey(User, on_delete=models.PROTECT)
     
     objects = ImagemManager()

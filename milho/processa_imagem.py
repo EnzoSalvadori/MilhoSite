@@ -14,9 +14,13 @@ import numpy as np
 import pandas
 import tensorflow as tf
 import psutil
+import rasterio
+from osgeo import gdal
+
+
+SITE = "http://127.0.0.1:8000/"
 
 THRES_SCORE = 0.5
-
 square_size = 500
 
 def get_session():
@@ -104,11 +108,13 @@ def cropImagem(img,conth,contw,id_img,userEmail):
 		boxes3, scores3, (len(boxes3)), iou_threshold=0.1
 	)
 	
-	cont = 0
+
 	for i in selected_indices:
-		cont += 1
-		boxes4.append(boxes3[i])
-		scores4.append(scores3[i])
+		largura = boxes3[i][2] - boxes3[i][0]
+		altura = boxes3[i][3] - boxes3[i][1]
+		if altura < 200 and largura < 200:
+			boxes4.append(boxes3[i])
+			scores4.append(scores3[i])
 
 	desenha(img,boxes4,scores4,id_img,userEmail)    
 				
@@ -144,6 +150,7 @@ def desenha(image,boxes,scores,id_img,userEmail):
 			meioX = int((boxes[i][2] - boxes[i][0])/2 + boxes[i][0])
 			meioY = int((boxes[i][3] - boxes[i][1])/2 + boxes[i][1])
 			cv2.circle(draw,(meioX,meioY), 3, (0,0,255), -1)
+			#cv2.rectangle(draw,(int(boxes[i][0]),int(boxes[i][1])),(int(boxes[i][2]),int(boxes[i][3])),(0,0,255),2)
 	#alterando os novos dados no banco 
 	imagem = Imagem.objects.filter(id=id_img)
 	cv2.imwrite("media\\CV_"+str(imagem[0].imagemOrg)+".JPG", draw)
@@ -151,12 +158,24 @@ def desenha(image,boxes,scores,id_img,userEmail):
 
 def salva(cont,draw,id_img,userEmail,imagem):
 	imagem.update(imagemPro=draw,quantPlantas=cont,processada="2",porcentagemPro=100)
-	ctx = {
-	'nome': str(imagem[0].imagemOrg) ,
-	'plantas': str(imagem[0].quantPlantas),
-	'imagemPro': "http://127.0.0.1:8000/relatorio/"+str(imagem[0].id)
-	}
-	sendMail(userEmail,ctx,"reultado_email.html","Relatório")
+	if imagem[0].area == -1:
+		ctx = {
+		'user': userEmail.split("@")[0],
+		'nome': str(imagem[0].imagemOrg) ,
+		'plantas': str(imagem[0].quantPlantas),
+		'imagemPro': SITE + "relatorio/"+str(imagem[0].id)
+		}
+		sendMail(userEmail,ctx,"reultado_email.html","Relatório")
+	else:
+		ctx = {
+		'user': userEmail.split("@")[0],
+		'nome': str(imagem[0].imagemOrg) ,
+		'plantas': str(imagem[0].quantPlantas),
+		'imagemPro': SITE + "relatorio/"+str(imagem[0].id),
+		'area': str(round(imagem[0].area, 3)),
+		'populacao': str(int(imagem[0].quantPlantas/imagem[0].area))
+		}
+		sendMail(userEmail,ctx,"reultado_email_2.html","Relatório")
 
 # 0 inicial
 # 1 em processamento
@@ -191,7 +210,31 @@ def processa(path_img,id_img,userEmail):
 		sendMail(userEmail,ctx,"erro_email.html","Erro inesperado")
 		Imagem.objects.filter(id=id_img).update(fila=True,processada=1) #imagem com erro no processamento vai para fila esperar para um novo processamento
 		#enviar um email para a conta da imagem avisando que um erro inesperado aconteceu 
-	
+
+def calArea(path_img):
+	#verificando se a imagem esta no formato UTM correto para medir
+	raster = rasterio.open(path_img)
+	datum = raster.crs.wkt.split(" ")
+	if "UTM" in datum:
+		#se estiver no formato correto, calcular o tamanho da area de 1 pixel
+		GDAL = gdal.Open(path_img)
+		gt = GDAL.GetGeoTransform()
+		pixelSizeX = gt[1]
+		pixelSizeY =-gt[5]
+		areaPix = pixelSizeX*pixelSizeY
+		#encontrar os pixels de representação pelas cores
+		r = raster.read(3)
+		g = raster.read(2)
+		b = raster.read(1)
+		ndvi = np.empty(raster.shape, dtype=rasterio.float32)
+		check = np.logical_or ( r > 0, g > 0 , b > 0)
+		pixels = np.count_nonzero(check == True)
+		#calcular a area total multiplicando a area de um pixel pela quantidade deles
+		area = areaPix * pixels
+		return area/10000 #dividir por 10000 para ter a area em Hectares
+	else:
+		return -1
+
 #img = cv2.imread(path_img)
 #divh, divw = calculaHW(img.shape[0],img.shape[1])
 #cropImagem(img,divh,divw,id_img)
