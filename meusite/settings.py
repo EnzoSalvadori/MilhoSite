@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '9x$78jkzry*ct@wuaw&ffeq_tuba1=y^*o_i35iv_8dst*!4us'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -129,12 +129,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-  os.path.join(BASE_DIR, 'static'),
-)
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+if DEBUG:
+  STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+  MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+else:
+  STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+  MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
