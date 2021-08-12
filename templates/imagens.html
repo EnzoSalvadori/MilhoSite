@@ -21,7 +21,8 @@
 </script>
 
 <div class="titulo1">Minhas imagens</div>
-<div class="progress" id="barra" style="background-color:grey; visibility: visible; margin-bottom: 1vh; height: 4vh; margin-top: 5vh;">
+<p style="margin-top: 5vh; margin-bottom: 0;"> <img src="../static/cloud.png" width="50"> Armazenamento</p>
+<div class="progress" id="barra" style="background-color:grey; visibility: visible; margin-bottom: 1vh; height: 4vh; margin-top: 1vh;">
     <div id="progressBar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
         aria-valuemax="100" style="width: 0%">
     </div>
@@ -35,14 +36,14 @@
         espaço = "{{user.espaco}}";
         espaço = parseFloat(espaço.replace(',','.'));
         espaço = espaço.toFixed(2)
-        texto.innerHTML = espaço+"/500.00 mb";
+        texto.innerHTML = espaço+" MB de 500 MB usados";
         barra.style.width = (espaço * 100) / 500 + "%"
     } 
     else {
         espaço = "{{user.espaco}}";
         espaço = parseFloat(espaço.replace(',','.'));
         espaço = espaço.toFixed(2)
-        texto.innerHTML = Tespaço+"/50000.00 mb";
+        texto.innerHTML = Tespaço+" MB de 50000 MB usados";
         barra.style.width = (espaço * 100) / 50000 + "%"
     }
 </script>
