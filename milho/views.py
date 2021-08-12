@@ -49,7 +49,6 @@ def up(request):
 				#verificando se o tamanho é compativel
 				if (usuario.espaco + mbSize <= LIMITE1) and (mbSize <= LIMITE1):
 					usuario.espaco = usuario.espaco + mbSize
-					print(mbSize)
 					cornImg = Imagem.objects.create_Imagem(uploaded_file,"default.jpg","0",usuario,mbSize)
 					usuario.save()
 					cornImg.save()
@@ -91,6 +90,10 @@ def imagens(request):
 @verified_email_required
 def relatorio(request,id_img):
 	imagem = Imagem.objects.filter(id = id_img)
+	usuario = request.user
+	#se tentar acessar uma imagem que nõa pertece a ele redireciona para a pagina de imagens
+	if imagem[0].fk_user != usuario:
+		return redirect('/imagens/')
 	if request.method == 'POST':
 		#verifica se a imagem que vai ser excluida pertence ao usuario
 		if imagem[0].fk_user == request.user:
@@ -105,17 +108,16 @@ def relatorio(request,id_img):
 			os.remove(imagem[0].imagemPro.path)
 			try:
 				#verificar se exite uma tumbnail e excluir ela
+				os.remove(imagem[0].tumbPro.path)
 				os.remove(imagem[0].tumb.path)
 			except:
 				pass
 			#tirando o espaço da imagem do usuario
-			usuario = request.user
 			usuario.espaco = usuario.espaco - imagem[0].tamanho
 			usuario.save()
 			#deletando a instancia do banco 
 			imagem[0].delete()
-			imagens = Imagem.objects.filter(fk_user = usuario)
-			return render(request, 'imagens.html',{'imagem' : imagem})
+			return redirect('/imagens/')
 		#se não ele volta direto para a mesma pagina
 	return render(request, 'processo.html',{'imagem' : imagem})
 

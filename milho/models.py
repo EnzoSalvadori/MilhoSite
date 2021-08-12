@@ -15,6 +15,7 @@ class Imagem(models.Model):
     imagemOrg = models.ImageField(default="default.jpg")
     imagemPro = models.ImageField(default="default.jpg")
     tumb = models.ImageField(default="default.jpg")
+    tumbPro = models.ImageField(default="default.jpg")
     porcentagemPro = models.IntegerField(default=0)
     quantPlantas = models.IntegerField(default=0)
     tamanho = models.FloatField(default=0)

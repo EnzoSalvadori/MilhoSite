@@ -101,8 +101,8 @@ def cropImagem(img,conth,contw,id_img,userEmail):
 			if (cropW2+(square_size/2)) < X:
 				crop_img = img[cropH1:cropH2, int(cropW1+(square_size/2)):int(cropW2+(square_size/2))]
 				detect(crop_img,cropH1,int(cropW1+(square_size/2)),boxes3,scores3)
-				
-		Imagem.objects.filter(id=id_img).update(porcentagemPro=(((i+1)*(contw)*100/(conth*contw)))-1)
+
+			Imagem.objects.filter(id=id_img).update(porcentagemPro=(((i)*(contw)+(j+1))*100/(conth*contw)-1))	
 
 	selected_indices = tf.image.non_max_suppression(
 		boxes3, scores3, (len(boxes3)), iou_threshold=0.1
@@ -153,11 +153,13 @@ def desenha(image,boxes,scores,id_img,userEmail):
 			#cv2.rectangle(draw,(int(boxes[i][0]),int(boxes[i][1])),(int(boxes[i][2]),int(boxes[i][3])),(0,0,255),2)
 	#alterando os novos dados no banco 
 	imagem = Imagem.objects.filter(id=id_img)
-	cv2.imwrite("media\\CV_"+str(imagem[0].imagemOrg)+".JPG", draw)
-	salva(cont,"CV_"+str(imagem[0].imagemOrg)+".JPG",id_img,userEmail,imagem)
+	cv2.imwrite("media\\CV_"+str(imagem[0].imagemOrg)+".TIF", draw)
+	tumb = cv2.resize(draw, (1280,720))
+	cv2.imwrite("media\\CV_"+str(imagem[0].imagemOrg)+".JPG", tumb)
+	salva(cont,"CV_"+str(imagem[0].imagemOrg)+".TIF",id_img,userEmail,imagem,"CV_"+str(imagem[0].imagemOrg)+".JPG")
 
-def salva(cont,draw,id_img,userEmail,imagem):
-	imagem.update(imagemPro=draw,quantPlantas=cont,processada="2",porcentagemPro=100)
+def salva(cont,draw,id_img,userEmail,imagem,tumb):
+	imagem.update(imagemPro=draw,quantPlantas=cont,processada="2",porcentagemPro=100,tumbPro=tumb)
 	if imagem[0].area == -1:
 		ctx = {
 		'user': userEmail.split("@")[0],

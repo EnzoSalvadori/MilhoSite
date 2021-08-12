@@ -43,7 +43,7 @@
         espaço = "{{user.espaco}}";
         espaço = parseFloat(espaço.replace(',','.'));
         espaço = espaço.toFixed(2)
-        texto.innerHTML = Tespaço+" MB de 50000 MB usados";
+        texto.innerHTML = espaço+" MB de 50000 MB usados";
         barra.style.width = (espaço * 100) / 50000 + "%"
     }
 </script>

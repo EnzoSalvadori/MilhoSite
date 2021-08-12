@@ -147,14 +147,14 @@ AUTHENTICATION_BACKENDS = [
 SITE_ID = 1
 LOGIN_REDIRECT_URL = "/"
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend" #email do console
-'''EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
+#EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend" #email do console
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
 DEFAULT_FROM_EMAIL = "cornview@cornview.com"
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 ANYMAIL = {
     "MAILGUN_API_KEY": "39bbaa60c02eb3014da700887294791a-c485922e-ea5d3b64",
     "MAILGUN_SENDER_DOMAIN": "mg.cornview.com",
-}#email de verdade'''
+}#email de verdade
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
