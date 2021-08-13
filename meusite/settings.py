@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '9x$78jkzry*ct@wuaw&ffeq_tuba1=y^*o_i35iv_8dst*!4us'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -173,5 +173,11 @@ ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
 # Email único
 ACCOUNT_UNIQUE_EMAIL = True
-
+#utilizando o usuario sobrescrevido users.User
 AUTH_USER_MODEL = "users.User"
+#obriga as pessoas a verificarem o email para fazer login
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+#loga a pessoa automaticamente apos a confirmação
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+#cria um link direto para validar o email
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True

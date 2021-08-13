@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}Verificação{% endblock %}
+
+{% block content %}
+{% csrf_token %}
+<div class="email-val">
+    <h1 class="text-center py-3">{% trans "Verify Your E-mail Address" %}</h1>
+
+    {% url 'account_email' as email_url %}
+
+    <p> Esta parte do site exige que verifiquemos se você é quem afirma ser. Para este propósito, enviamos um e-mail de
+        verificação. </p>
+    <p> Para efetuar a verificação apenas clique no link de verificação enviado ao e-mail e logo em seguida atualize a
+        página. </p>
+</div>
+{% endblock %}

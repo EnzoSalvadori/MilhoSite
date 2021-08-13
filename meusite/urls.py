@@ -27,11 +27,16 @@ urlpatterns = [
     #django admin
     path('ASDHJHUQWH&GYASGDYAGQI/', admin.site.urls),
     #user management
-    #path('accounts/', include("allauth.urls")),
+    path('accounts/', include("allauth.urls")),
     path("signup/", views.signup, name="account_signup"),
     path("login/", views.login, name="account_login"),
     path("accounts/login/", views.login, name="account_login"),
     path("logout/", views.logout, name="account_logout"),
+     re_path(
+        r"^confirm-email/(?P<key>[-:\w]+)/$",
+        views.confirm_email,
+        name="account_email_verification_sent",
+    ),
      re_path(
         r"^confirm-email/(?P<key>[-:\w]+)/$",
         views.confirm_email,
