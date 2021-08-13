@@ -18,7 +18,7 @@ import rasterio
 from osgeo import gdal
 
 
-SITE = "http://127.0.0.1:8000/"
+SITE = "http://www.cornview.com/"
 
 THRES_SCORE = 0.5
 square_size = 500
@@ -191,27 +191,52 @@ def sendMail(email,ctx,html,sobre):
 		msg.attach_alternative(html_content, "text/html")
 		msg.send()
 
-def processa(path_img,id_img,userEmail):
+def processa(path_img,id_img,usuario):
 	imagem = Imagem.objects.filter(id=id_img)
 	imagem.update(processada = "1")
 	#imagem foi para area de processamento
 	if (psutil.virtual_memory()[2] >= 80): #se a menoria do servidor ja esta com se uso em 80% ou mais enviar a imagem para a fila 
-		Imagem.objects.filter(id=id_img).update(fila=True)
+		imagem.update(fila=True)
 		return
 	#se tudo estiver correto apenas processar a imagem
 	try:
 		img = cv2.imread(path_img)
 		divh, divw = calculaHW(img.shape[0],img.shape[1])
-		cropImagem(img,divh,divw,id_img,userEmail)
+		cropImagem(img,divh,divw,id_img,usuario.email)
 	except Exception as e:
 		print(e)
-		ctx = {
-		'user': userEmail.split("@")[0],
-		'imagem': imagem[0].imagemOrg
-		}
-		sendMail(userEmail,ctx,"erro_email.html","Erro inesperado")
-		Imagem.objects.filter(id=id_img).update(fila=True,processada=1) #imagem com erro no processamento vai para fila esperar para um novo processamento
-		#enviar um email para a conta da imagem avisando que um erro inesperado aconteceu 
+		if imagem[0].erro < 3:
+			ctx = {
+			'user': usuario.username,
+			'imagem': imagem[0].imagemOrg
+			}
+			sendMail(usuario.email,ctx,"erro_email.html","Erro inesperado")#enviar um email para a conta da imagem avisando que um erro inesperado aconteceu 
+			imagem.update(fila=True,processada=1,erro=imagem[0].erro+1) #imagem com erro no processamento vai para fila esperar para um novo processamento
+		else:
+			ctx = {
+			'user': usuario.username,
+			'imagem': imagem[0].imagemOrg
+			}
+			sendMail(usuario.email,ctx,"erro_email_2.html","Imagem invalida")#enviar um email para a conta da imagem avisando que um erro inesperado aconteceu 
+			#excui as imagens da pasta media
+			os.remove(imagem[0].imagemOrg.path)
+			try:
+				os.remove(imagem[0].imagemPro.path)
+			except:
+				pass
+			try:
+				os.remove(imagem[0].tumbPro.path)
+			except:
+				pass
+			try:
+				os.remove(imagem[0].tumb.path)
+			except:
+				pass
+			#tirando o espaço da imagem do usuario
+			usuario.espaco = usuario.espaco - imagem[0].tamanho
+			usuario.save()
+			#deletando a instancia do banco 
+			imagem[0].delete()
 
 def calArea(path_img):
 	#verificando se a imagem esta no formato UTM correto para medir

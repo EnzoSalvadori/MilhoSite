@@ -126,7 +126,7 @@ def processando(request):
 	imagem = Imagem.objects.filter(processada = "0", fk_user = request.user)
 	if len(imagem) > 0:
 		path_img = imagem[0].imagemOrg.path 
-		t1 = Thread(target=processa,args=[path_img,imagem[0].id,request.user.email])
+		t1 = Thread(target=processa,args=[path_img,imagem[0].id,request.user])
 		t1.start()
 		return render(request, 'processando.html',{'imagem' : imagem})
 	else:
