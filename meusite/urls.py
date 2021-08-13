@@ -25,7 +25,7 @@ from allauth.account import views
 
 urlpatterns = [
     #django admin
-    path('admin/', admin.site.urls),
+    path('ASDHJHUQWH&GYASGDYAGQI/', admin.site.urls),
     #user management
     #path('accounts/', include("allauth.urls")),
     path("signup/", views.signup, name="account_signup"),
