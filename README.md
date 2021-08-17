@@ -32,6 +32,6 @@ python -m pip install GDAL-3.2.3-cp37-cp37m-win_amd64.whl
 
 python -m pip install rasterio-1.2.3-cp37-cp37m-win_amd64.whl
 
-https://github.com/Johnnyboycurtis/webproject
+NGINX     https://github.com/Johnnyboycurtis/webproject
 
 (lembrar de mudar o nome do site no banco de dados / ajustar link para nome do DNS do site verdadeiro no envio do email de relatorio)
