@@ -4,6 +4,9 @@ django-crispy-forms==1.11.2
 django-anymail==8.4
 tensorflow==2.1.0
 Keras==2.3.1
+openpyxl==3.0.4
+waitress==2.0.0
+
 
 
 

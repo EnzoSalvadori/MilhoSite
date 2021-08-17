@@ -156,7 +156,7 @@ def desenha(image,boxes,scores,id_img,userEmail):
 	cv2.imwrite("media\\CV_"+str(imagem[0].imagemOrg)+".TIF", draw)
 	tumb = cv2.resize(draw, (1280,720))
 	cv2.imwrite("media\\CV_"+str(imagem[0].imagemOrg)+".JPG", tumb)
-	salva(cont,"CV_"+str(imagem[0].imagemOrg)+".TIF",id_img,userEmail,imagem,"CV_"+str(imagem[0].imagemOrg)+".JPG")
+	salva(cont,"CV_"+str(imagem[0].imagemOrg),id_img,userEmail,imagem,"CV_"+str(imagem[0].imagemOrg)+".JPG")
 
 def salva(cont,draw,id_img,userEmail,imagem,tumb):
 	imagem.update(imagemPro=draw,quantPlantas=cont,processada="2",porcentagemPro=100,tumbPro=tumb)
