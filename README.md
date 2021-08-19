@@ -50,5 +50,7 @@ https://docs.github.com/pt/github/authenticating-to-github/keeping-your-account-
 
 git clone https://github.com/EnzoSalvadori/MilhoSite.git
 
-(lembrar de mudar o nome do site no banco de dados / ajustar link para nome do DNS do site verdadeiro no envio do email de relatorio)
+# Ajustes
+
+(lembrar de mudar o nome do site no banco de dados / ajustar link para nome do dominio do site verdadeiro no envio do email de relatorio)
 
