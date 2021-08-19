@@ -153,7 +153,7 @@ def desenha(image,boxes,scores,id_img,userEmail):
 			#cv2.rectangle(draw,(int(boxes[i][0]),int(boxes[i][1])),(int(boxes[i][2]),int(boxes[i][3])),(0,0,255),2)
 	#alterando os novos dados no banco 
 	imagem = Imagem.objects.filter(id=id_img)
-	cv2.imwrite("media\\CV_"+str(imagem[0].imagemOrg)+".TIF", draw)
+	cv2.imwrite("media\\CV_"+str(imagem[0].imagemOrg), draw)
 	tumb = cv2.resize(draw, (1280,720))
 	cv2.imwrite("media\\CV_"+str(imagem[0].imagemOrg)+".JPG", tumb)
 	salva(cont,"CV_"+str(imagem[0].imagemOrg),id_img,userEmail,imagem,"CV_"+str(imagem[0].imagemOrg)+".JPG")
