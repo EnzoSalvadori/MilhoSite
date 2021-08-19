@@ -4,21 +4,7 @@ Python 3.7.7
 
 https://visualstudio.microsoft.com/pt-br/visual-cpp-build-tools/
 
-pip install django==3.1
-
-pip install django-allauth==0.44.0
-
-pip install django-crispy-forms==1.11.2
-
-pip install django-anymail==8.4
-
-pip install tensorflow==2.1.0
-
-pip install Keras==2.3.1
-
-pip install openpyxl==3.0.4
-
-pip install waitress==2.0.0
+pip install -r requeriments.txt
 
 https://github.com/fizyr/keras-retinanet
 
@@ -44,11 +30,71 @@ sudo apt-get update
 
 sudo apt-get install python3.7
 
+sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7 10
+
+sudo apt install python3-pip
+
 sudo apt install git
 
 https://docs.github.com/pt/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token
 
 git clone https://github.com/EnzoSalvadori/MilhoSite.git
+
+sudo apt-get install -y python3-opencv
+
+sudo python3 -m pip install -r requeriments.txt
+
+sudo apt-get install python3.7-dev
+
+git clone https://github.com/EnzoSalvadori/keras-retinanet-install.git
+
+sudo python3.7 setup.py build_ext --inplace 
+
+sudo python3.7 setup.py install 
+
+sudo python3 -m pip install matplotlib==3.2.2
+
+sudo python3 -m pip install pandas==1.0.5
+
+sudo python3 -m pip install psutil==5.7.0
+
+https://rasterio.readthedocs.io/en/latest/installation.html
+
+sudo apt-get install python-numpy gdal-bin libgdal-dev
+
+sudo python3 -m pip install rasterio
+
+sudo apt-get install libgdal-dev
+
+export CPLUS_INCLUDE_PATH=/usr/include/gdal
+
+export C_INCLUDE_PATH=/usr/include/gdal
+
+sudo python3 -m pip install GDAL
+
+cd usr/lib/python3/dist-packages/osgeo/
+
+sudo mv _gdal.cpython-38-x86_64-linux-gnu.so _gdal.so
+sudo mv _gdal_array.cpython-38-x86_64-linux-gnu.so _gdal_array.so
+sudo mv _gdalconst.cpython-38-x86_64-linux-gnu.so _gdalconst.so  
+sudo mv _gnm.cpython-38-x86_64-linux-gnu.so _gnm.so   
+sudo mv _ogr.cpython-38-x86_64-linux-gnu.so _ogr.so  
+sudo mv _osr.cpython-38-x86_64-linux-gnu.so _osr.so
+
+sudo python3 -m pip install gdown
+
+gdown link drive do modelo mv resnet152_csv_20.h5 /retinaNET/resnet152_csv_20_Final.h5
+
+sudo mkdir retinaNET
+
+sudo mv resnet152_csv_20.h5 retinaNET/
+
+nano classes.csv
+
+Planta,0
+
+python3 manage.py runserver
+
 
 # Ajustes
 
