@@ -1,4 +1,4 @@
-WINDOWS
+# WINDOWS
 
 Python 3.7.7
 
@@ -36,7 +36,7 @@ python -m pip install rasterio-1.2.3-cp37-cp37m-win_amd64.whl
 
 NGINX (https://github.com/Johnnyboycurtis/webproject | https://www.youtube.com/watch?v=Dq9_U0bFffg&t=772s)
 
-UBUNTU
+# UBUNTU
 
 sudo add-apt-repository ppa:deadsnakes/ppa
 
@@ -46,13 +46,9 @@ sudo apt-get install python3.7
 
 sudo apt install git
 
-git clone https://EnzoSalvadori:ozne171198@github.com/EnzoSalvadori/MilhoSite.git
+https://docs.github.com/pt/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token
 
 git clone https://github.com/EnzoSalvadori/MilhoSite.git
-
-EnzoSalvadori
-
-Ozne171198
 
 (lembrar de mudar o nome do site no banco de dados / ajustar link para nome do DNS do site verdadeiro no envio do email de relatorio)
 
