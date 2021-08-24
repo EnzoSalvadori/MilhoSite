@@ -113,7 +113,25 @@ sudo service nginx restart
 
 sudo python3 manage.py migrate
 
- sudo python3 runserver.py
+apt-get install screen
+
+pressionar as teclas CTRL+A+D. Essa combinação de teclas fará com que essa sessão virtual seja “separada”
+
+screen (para iniciar qualquer comando antes)
+
+screen -ls (para listar as sessões abertas)
+
+screen -r (para restaurar a sessão)
+
+screen -XS <session-id> quit
+
+ps -ef (lista os processos que estão sendo executados)
+
+sudo kill PID (mata o processo executado)
+
+sudo python3 runserver.py
+
+sudo python3 manage.py fila
 
 # Ajustes
 
