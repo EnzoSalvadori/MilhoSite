@@ -30,10 +30,10 @@ def get_session():
 
 local = os.getcwd()
 
-CLASSES_FILE = local + '\\retinaNET\\classes.csv'
+CLASSES_FILE = local + '/retinaNET/classes.csv'
 tf.compat.v1.keras.backend.set_session(get_session())
 
-model_path = local + '\\retinaNET\\resnet152_csv_20_Final.h5'
+model_path = local + '/retinaNET/resnet152_csv_20_Final.h5'
 print(model_path)
 
 # load retinanet model

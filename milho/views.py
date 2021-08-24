@@ -62,13 +62,13 @@ def up(request):
 			oldName = cornImg.imagemOrg
 			spl = str(oldName).split(".")
 			local = os.getcwd()
-			img = cv2.imread(local+"\\media\\"+str(oldName))
+			img = cv2.imread(local+"/media/"+str(oldName))
 			#se a imagem é um TIF cirar a area da imagem e uma imagem JPG para usar de tumbnail
 			if (spl[len(spl)-1].upper() == "TIFF" or spl[len(spl)-1].upper() == "TIF"):
 				spl[len(spl)-1] = "JPG"
 				tumbName = ".".join(spl)
 				tumb = cv2.resize(img, (1280,720))
-				cv2.imwrite(local+"\\media\\"+tumbName,tumb)
+				cv2.imwrite(local+"/media/"+tumbName,tumb)
 				area = calArea(cornImg.imagemOrg.path)
 			else:
 				tumbName = oldName

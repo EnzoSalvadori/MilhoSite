@@ -24,13 +24,19 @@ NGINX (https://github.com/Johnnyboycurtis/webproject | https://www.youtube.com/w
 
 # UBUNTU
 
+sudo add-apt-repository ppa:ubuntugis/ppa
+
 sudo add-apt-repository ppa:deadsnakes/ppa
 
 sudo apt-get update
 
 sudo apt-get install python3.7
 
+sudo apt-get install python3.7-dev
+
 sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7 10
+
+sudo apt-get install -y python3-opencv
 
 sudo apt install python3-pip
 
@@ -40,17 +46,25 @@ https://docs.github.com/pt/github/authenticating-to-github/keeping-your-account-
 
 git clone https://github.com/EnzoSalvadori/MilhoSite.git
 
-sudo apt-get install -y python3-opencv
-
 sudo python3 -m pip install -r requeriments.txt
 
-sudo apt-get install python3.7-dev
+sudo python3 -m pip install 
 
 git clone https://github.com/EnzoSalvadori/keras-retinanet-install.git
 
 sudo python3.7 setup.py build_ext --inplace 
 
 sudo python3.7 setup.py install 
+
+sudo python3 -m pip install opencv-python==4.5.2.52
+
+sudo python3 -m pip uninstall numpy
+
+sudo python3 -m pip install numpy==1.17.0
+
+sudo python3 -m pip uninstall h5py
+
+sudo python3 -m pip install h5py==2.10.0
 
 sudo python3 -m pip install matplotlib==3.2.2
 
@@ -60,17 +74,9 @@ sudo python3 -m pip install psutil==5.7.0
 
 https://rasterio.readthedocs.io/en/latest/installation.html
 
-sudo apt-get install python-numpy gdal-bin libgdal-dev
+sudo apt-get install gdal-bin libgdal-dev
 
 sudo python3 -m pip install rasterio
-
-sudo apt-get install libgdal-dev
-
-export CPLUS_INCLUDE_PATH=/usr/include/gdal
-
-export C_INCLUDE_PATH=/usr/include/gdal
-
-sudo python3 -m pip install GDAL
 
 cd usr/lib/python3/dist-packages/osgeo/
 
@@ -83,18 +89,27 @@ sudo mv _osr.cpython-38-x86_64-linux-gnu.so _osr.so
 
 sudo python3 -m pip install gdown
 
-gdown link drive do modelo mv resnet152_csv_20.h5 /retinaNET/resnet152_csv_20_Final.h5
+gdown https://drive.google.com/u/0/uc?id=10Sxho6ZJlOVymCD4l9QkgeMYc0S-pRC0&export=download (link drive do modelo) 
+
+mv resnet152_csv_20.h5 resnet152_csv_20_Final.h5
 
 sudo mkdir retinaNET
 
-sudo mv resnet152_csv_20.h5 retinaNET/
+sudo mv resnet152_csv_20_Final.h5 retinaNET/
 
-nano classes.csv
+sudo nano classes.csv
 
 Planta,0
 
-python3 manage.py runserver
+sudo apt install nginx
 
+cd etc/nginx/sites-enabled/
+
+trocar as configurações default
+
+sudo python3 manage.py collectstatic
+
+sudo service nginx restart
 
 # Ajustes
 
