@@ -111,6 +111,10 @@ sudo python3 manage.py collectstatic
 
 sudo service nginx restart
 
+sudo python3 manage.py migrate
+
+ sudo python3 runserver.py
+
 # Ajustes
 
 (lembrar de mudar o nome do site no banco de dados / ajustar link para nome do dominio do site verdadeiro no envio do email de relatorio)
