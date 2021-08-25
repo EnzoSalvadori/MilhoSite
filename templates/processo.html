@@ -39,21 +39,21 @@
   </table>
   {% endif %}
   <div class="row">
-    <div class="col-4"></div>
-    <div class="col-2">
-      <a class="btn btn-primary mt-5 mb-5 px-5 py-2" download="custom-filename.jpg" href="../media/{{ i.imagemPro }}"
+    <div class="col-4" style="margin: 0%; padding: 0%;"></div>
+    <div class="btn-res1 col-2">
+      <a class="btn btn-primary mt-5 mb-5 py-2" download="custom-filename.jpg" href="../media/{{ i.imagemPro }}"
         title="ImageName">
         Baixar imagem
       </a>
     </div>
-    <div class="col-2">
+    <div class="btn-res2 col-2">
       <form method="POST" id="formID" onsubmit=" return confirm('Tem certeza que deseja excluir a imagem?');" class="mt-5 text-center">
         {% csrf_token %}
         {{ form|crispy }}
-        <button class="btn btn-danger px-5 py-2" id="botao">Exlcuir imagem</button>
+        <button class="btn btn-danger py-2" id="botao">Exlcuir imagem</button>
       </form>
     </div>
-    <div class="col-4"></div>
+    <div class="col-4" style="margin: 0%; padding: 0%;"></div>
   </div>
 </div>
 {% endfor %}

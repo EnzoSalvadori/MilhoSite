@@ -105,6 +105,8 @@ sudo apt install nginx
 
 cd etc/nginx/sites-enabled/
 
+cd home/ubuntu/MilhoSite
+
 trocar as configurações default
 
 sudo python3 manage.py collectstatic

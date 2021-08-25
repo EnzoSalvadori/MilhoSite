@@ -54,7 +54,7 @@
         <form method="POST" class="col-6 text-center" id="formID" enctype="multipart/form-data">
             {% csrf_token %}
             <input type="hidden" name="id" value="{{ i.id }}">
-            <img src="../media/{{ i.tumb }}" alt="My image" width=480 height=270 name="img">
+            <img src="../media/{{ i.tumb }}" alt="My image" width=480 height=270 name="img" class="imagens">
             {% if i.processada == "1" %}
                 <a class="btn btn-primary my-3" id="{{ i.id }}" href="{% url 'pages:processando' %}" >Visualizar processamento</a>
             {% endif %}
