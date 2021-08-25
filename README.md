@@ -97,6 +97,8 @@ sudo mkdir retinaNET
 
 sudo mv resnet152_csv_20_Final.h5 retinaNET/
 
+cd retinaNET
+
 sudo nano classes.csv
 
 Planta,0
