@@ -10,12 +10,12 @@
     var espaco_usuario = "{{user.espaco}}";
     function valida_up() {
         if (tipo_usuario == "0") {
-            if (imagem.files.item(0).size > 524288000) {
-                alert("A imagem selecionada ultaprassou seu limite de 500 Mb.");
+            if (imagem.files.item(0).size > 52428800) {
+                alert("A imagem selecionada ultaprassou seu limite de 50 Mb.");
                 imagem.value = "";
                 return;
             }
-            if (imagem.files.item(0).size + parseInt(espaco_usuario) > 524288000) {
+            if (imagem.files.item(0).size + parseInt(espaco_usuario) > 52428800) {
                 alert("Seu limite de armazenamento ultrapassa o tamanho do arquivo selecionado.");
                 imagem.value = "";
                 return;

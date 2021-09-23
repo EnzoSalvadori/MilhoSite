@@ -9,7 +9,7 @@ from .processa_imagem import calArea
 from threading import Thread
 import cv2
 
-LIMITE1 = 500 #MB 524288000 BYTES
+LIMITE1 = 50 #MB 52428800 BYTES
 LIMITE2 = 50000 #MB 53687063712 BYTES
 
 def home(request):
